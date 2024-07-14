@@ -31,7 +31,7 @@ public class TodoClient {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return objectMapper.readValue(response.body(), new TypeReference<>() {
+        return objectMapper.readValue(response.body(), new TypeReference<List<Todo>>() {
         });
     }
 
@@ -64,7 +64,7 @@ public class TodoClient {
     public HttpResponse<String> update(Todo todo) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest
                 .newBuilder()
-                .uri(URI.create(BASE_URL + "/" + todo.id()))
+                .uri(URI.create(BASE_URL + "/" + todo.getId()))
                 .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(todo)))
                 .build();
 
@@ -74,7 +74,7 @@ public class TodoClient {
     public HttpResponse<String> delete(Todo todo) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest
                 .newBuilder()
-                .uri(URI.create(BASE_URL + "/" + todo.id()))
+                .uri(URI.create(BASE_URL + "/" + todo.getId()))
                 .DELETE()
                 .build();
 

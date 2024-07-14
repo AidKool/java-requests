@@ -22,10 +22,10 @@ class TodoClientTest {
     @Test
     void showReturnTodoGivenValidId() throws IOException, InterruptedException, TodoNotFoundException {
         Todo todo = client.findById(1);
-        assertEquals(1, todo.userId());
-        assertEquals(1, todo.id());
-        assertEquals("delectus aut autem", todo.title());
-        assertFalse(todo.completed());
+        assertEquals(1, todo.getUserId());
+        assertEquals(1, todo.getId());
+        assertEquals("delectus aut autem", todo.getTitle());
+        assertFalse(todo.getCompleted());
     }
 
     @Test
