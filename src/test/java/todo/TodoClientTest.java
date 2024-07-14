@@ -35,7 +35,7 @@ class TodoClientTest {
     }
 
     @Test
-    void shouldCreateNewTodo() throws IOException, InterruptedException, TodoNotFoundException {
+    void shouldCreateNewTodo() throws IOException, InterruptedException {
         Todo todo = new Todo(201, 1, "Learn Java", false);
 
         HttpResponse<String> response = client.create(todo);
@@ -43,7 +43,7 @@ class TodoClientTest {
     }
 
     @Test
-    void shouldUpdateExistingTodo() throws IOException, InterruptedException, TodoNotFoundException {
+    void shouldUpdateExistingTodo() throws IOException, InterruptedException {
         Todo todo = new Todo(1, 1, "NEW TITLE", true);
 
         HttpResponse<String> response = client.update(todo);

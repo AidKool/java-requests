@@ -31,7 +31,7 @@ public class TodoClient {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return objectMapper.readValue(response.body(), new TypeReference<List<Todo>>() {
+        return objectMapper.readValue(response.body(), new TypeReference<>() {
         });
     }
 
