@@ -23,24 +23,15 @@ public class TodoClient {
     }
 
     public List<Todo> findAll() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(BASE_URL))
-                .GET()
-                .build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL)).GET().build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return objectMapper.readValue(response.body(), new TypeReference<>() {
-        });
+        return objectMapper.readValue(response.body(), objectMapper.getTypeFactory().constructCollectionType(List.class, Todo.class));
     }
 
     public Todo findById(int id) throws IOException, InterruptedException, TodoNotFoundException {
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(BASE_URL + "/" + id))
-                .GET()
-                .build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/" + id)).GET().build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -52,31 +43,19 @@ public class TodoClient {
     }
 
     public HttpResponse<String> create(Todo todo) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(BASE_URL))
-                .POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(todo)))
-                .build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL)).POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(todo))).build();
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public HttpResponse<String> update(Todo todo) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(BASE_URL + "/" + todo.getId()))
-                .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(todo)))
-                .build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/" + todo.getId())).PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(todo))).build();
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public HttpResponse<String> delete(Todo todo) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest
-                .newBuilder()
-                .uri(URI.create(BASE_URL + "/" + todo.getId()))
-                .DELETE()
-                .build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/" + todo.getId())).DELETE().build();
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
